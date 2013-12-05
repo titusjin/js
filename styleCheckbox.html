@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+        <meta content='text/html;charset=utf-8' />
+        <title>Styel</title>
+    </head>
+    <body>
+        <input type="checkbox" style='display:none;' />
+        <label id='label1'>Check Box 1</label>
+        <script>
+		function alertName(){
+		    var word = 'hello';
+		    function innerHello(name){
+			alert(word + name);
+		    }
+		    return innerHello;
+		}
+		document.getElementById('label1').onClick((alertName())(' titus'));
+	</script>
+    </body>
+</html>
