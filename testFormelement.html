@@ -1,0 +1,167 @@
+<html>
+<head>
+<style>
+#hd {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#ft {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.left-side {
+	float: left;
+	top: 40px;
+	width: 40%;
+	left: 10px;
+	box-sizing: border-box;
+}
+
+.main-content {
+	overflow: auto;
+	margin-left: 20px;
+	width: 60%;
+	box-sizing: border-box;
+	margin-left: 20px;
+	margin-left: 20px;
+}
+</style>
+</head>
+<body>
+	<header id="hd">頭部</header>
+	<div class='topcontainer'>
+		<div class='left-side'>
+			<form onInput="result.value=parseInt(a.value)+parseInt(b.value)">
+				<input type="range" name="b" value="50" min='1' max='100' /> + <input
+					type="number" name="a" value="10" /> =
+				<output id="result"></output>
+				<div>
+					Google search: <input type='search' name='googleSearch' />
+				</div>
+				<div>
+					Tel input : <input type='tel' name='tel1' />
+				</div>
+				<select>
+					<option>white</option>
+					<option>black</option>
+					<option>blue</option>
+					<option>red</option>
+				</select>
+			</form>
+			<div id='iconContainer' name='b'
+				style='bottom: 4%; right: 4%; display: block; position: fixed; width: 50px; height: 50px;'>
+				<a href='#top'
+					style='display: block; text-align: center; width: 50px; height: 50px; text-decoration: none;'>
+					<span class='goTopIcon'
+					style='display: block; width: 50px; height: 40px; background-position: center; background-image: url(../Downloads/pic/up-arrow.png); backgrond-repeat: no-repeat; backgound-position: 50%; background-repeat: no-repeat;'></span>
+					top
+				</a>
+			</div>
+			<dl>
+				<dd style='display: inlne;'>hello dd 1</dd>
+				<dd style='display: inline;'>hello dd 2</dd>
+			</dl>
+		</div>
+
+		<div class='main-content'>
+			<table id='top'>
+				<tr>
+					<td>1column1row</td>
+					<td>2column1row</td>
+				</tr>
+				<tr>
+					<td name='first time'>1 column1 row</td>
+					<td>vim is the best IDE!!</td>
+					<td>throw the mouse away!!</td>
+					<td name='hello'>2 column1 row</td>
+				</tr>
+			</table>
+			<form onInput="result.value=parseInt(a.value)+parseInt(b.value)">
+				<input type="range" name="b" value="50" min='1' max='100' /> + <input
+					type="number" name="a" value="10" /> =
+				<output id="result"></output>
+				<div>
+					Google search: <input type='search' name='googleSearch' />
+				</div>
+				<div>
+					Tel input : <input type='tel' name='tel1' />
+				</div>
+				<select>
+					<option>white</option>
+					<option>black</option>
+					<option>blue</option>
+					<option>red</option>
+				</select>
+			</form>
+			<div id='iconContainer' name='b'
+				style='bottom: 4%; right: 4%; display: block; position: fixed; width: 50px; height: 50px;'>
+				<a href='#top'
+					style='display: block; text-align: center; width: 50px; height: 50px; text-decoration: none;'>
+					<span class='goTopIcon'
+					style='display: block; width: 50px; height: 40px; background-position: center; background-image: url(../Downloads/pic/up-arrow.png); backgrond-repeat: no-repeat; backgound-position: 50%; background-repeat: no-repeat;'></span>
+					top
+				</a>
+			</div>
+
+			<section style='margin-top: 100px; width: 50%;'>
+				<p>he concept of formal classes in JavaScript has led the
+					internet develosphere amuck since the dawn of time day JavaScript
+					was invented. From Crock's explanation on prototypal inheritance to
+					Dean's Base one and two, from Prototype's Class to Mootool's Class,
+					and from debunking objects to getting back to basics, the
+					JavaScript community thrives on systems that help make working with
+					JavaScript classes easier ‚Äî despite it still being a "classless"
+					language. Well, I'm here to introduce one more that will keep
+					things simple. If you trust every word I say and have no desire to
+					read, then get on with your life and download Klass now on Github.
+					Klass has no awkward interface to learn and looks more like regular
+					JavaScript aside from some simple helpers to help organize your
+					code. It also supports the CommonJS Module API allowing it to fit
+					nicely into Node.js environments and falls back to exposing the
+					regular interface when a module loader is not found. So, let's have
+					at the interface... klass var Person = klass(function (name) {
+					this.name = name; }) .statics({ head: ':)', feet: '_|_' })
+					.methods({ walk: function () {} }); extend var SuperHuman =
+					Person.extend(function (name) { // super class is automagically
+					called }) .methods({ walk: function() { this.supr(); this.fly(); },
+					fly: function() {} }); new SuperHuman('Zelda').walk() implement
+					because sometimes you want to overwrite OR mixin an instance
+					method... var Alien = SuperHuman.extend({ beem: function() {
+					this.supr(); // beem into space } }); if (beamIsDown) {
+					Alien.implement({ beam: function() { this.supr(); // fallback to
+					jets this.jets(); }, jets: function () {} }); } Environments Klass
+					comes in two flavors. in your browser: as a module var klass =
+					require('path/to/klass'), And that's it! Have a play on the project
+					page and also note... there's tests! npm users Already using Node's
+					Package Manager? Easy Peasy. % npm install klass Contributing help
+					Huge thanks to @fat for helping contribute to some core bits in the
+					mess of it. Cheers.</p>
+			</section>
+		</div>
+	</div>
+	<footer id="ft">底部</footer>
+	<script src="http://yui.yahooapis.com/3.14.1/build/yui/yui-min.js"></script>
+	<script>
+		YUI().use(
+				'node',
+				function(Y) {
+					var nodeList = Y.all('tr');
+					var text1 = nodeList.item(0).childNodes;
+					//I would like to know the input element fileuploader object is implemented as soc says
+					Y.one('#f').on('change', function() {
+						Y.log(Y.one('#f').getDOMNode().value);
+					})
+
+					// Node.get('text') and Node.innderHTML() can do the samething. 
+					var y = Y.all('tr').item(1).get('children').item(0).get(
+							'text');
+					Y.log('hello' + y);
+					var clone1 = Y.all('tr').item(1).get('children').item(0)
+							.cloneNode(true);
+					Y.one('body').appendChild(clone1);
+				});
+	</script>
+</body>
+</html>
