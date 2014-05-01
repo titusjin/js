@@ -1,23 +1,48 @@
 <!DOCTYPE HTML>
 <html>
-    <head>
-        <title>YUI test</title>
-        <script src='http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js'></script>
-    </head>
-    <body>
-        <div style='background:#eaeaea; width: 80%; display: inline-block;'>
-            <div style='float: left;'>
-                hello world!
-            </div>
-            <div style='overflow:auto;  word-wrap: break-word'>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </div>
-        </div>
-        <script>
-            window.onload = function() {
-                var number = '123.22';
-            };
-        </script>
-    </body>
+<head>
+<title>YUI test</title>
+<script src='http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js'></script>
+</head>
+<body>
+	<div style='background: #eaeaea; width: 80%; display: inline-block;'>
+		<div style='float: left;'>hello world!</div>
+		<div style='overflow: auto; word-wrap: break-word'>Lorem ipsum
+			dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+			incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+			commodo consequat. Lorem ipsum dolor sit amet, consectetur
+			adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+			dolore magna aliqua.</div>
+	</div>
+	<img
+		src='http://lissarankin.com/wp-content/uploads/2013/05/angelina-jolie.jpg'
+		alt='THIS IS ANGELNA JOLIEFss' / style='width: 100px; length: 50px;'>
+	<div id='id1'>this is the first paragraph</div>
+	<div id='id2'>this is the second paragraph</div>
+	<script>
+		window.onload = function() {
+			var number = '123.22';
+		};
+		var s1 = null;
+		var s2 = '';
+		if (!s1 && !s2) {
+			console.log('empty string and nlll are athe same');
+		}
+
+		YUI().use('node', 'event', 'node-event-simulate', function(Y) {
+			var div1 = Y.one('#id1');
+			div1.on('click', function(e) {
+				console.log('HAHAHAHA ======');
+			});
+
+			var div2 = Y.one('#id2');
+			div2.on('click', function(e) {
+				div1.simulate('click');
+			})
+
+		});
+	</script>
+</body>
 
 </html>
