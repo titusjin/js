@@ -1,0 +1,52 @@
+function(){
+    		FB.login(function(response){
+    			var grantedScopes;
+    			if(response.authResponse){
+    				grantedScopes = response.authResponse.grantedScopes;
+    			}
+    			
+    		 	if(response.status === 'connected'){
+    		 		if(grantedScopes && grantedScopes.indexOf('email') > -1){
+    					FB.api("/"+response.authResponse.userID+"?fields=id,name,email,first_name,last_name,gender,birthday",
+    							function (apiResponse) {
+    								var loginResult;
+    								if (apiResponse && !apiResponse.error) {
+    									var result = Y.fbUtils.saveFBUser(apiResponse);
+    								}else{
+    									Y.commUtils.showAlert(Y.myI18n.getText('general.alert.title'),Y.myI18n.getText('index.login.facebookLoginFail'));
+    								}
+    								
+    								if(result.fbLoginResult){
+    									// SSO integrate process
+    									if(result.integrateSSOAccount){
+    										Y.commUtils.showLightBox('../Login/LoginSubAction_joinFB.action');
+    									}else if(result.ssoBindnigFacebook){
+    										if(result.fbDuplicate){
+    											Y.commUtils.showAlert(Y.myI18n.getText('general.alert.title'),Y.myI18n.getText('index.login.facebookIDDuplicate'));
+    										}else{
+    											if(result.fbBindingResult){
+    												window.location.reload();
+    											}else{
+    												Y.commUtils.showAlert(Y.myI18n.getText('general.alert.title'),Y.myI18n.getText('index.login.facebookBindingFail'));
+    											}
+    										}
+    									}else{
+    										var returnUrl = Y.one('#return_url').getAttribute('value');
+    										Y.commUtils.showAlert(Y.myI18n.getText('general.alert.title'),Y.myI18n.getText('index.login.facebookLoginSuccess'),function(){
+    											window.location.href = returnUrl;
+    										});
+    									}
+    								}else{
+    									Y.commUtils.showAlert(Y.myI18n.getText('general.alert.title'),Y.myI18n.getText('index.login.facebookLoginFail'));
+    								}
+    					});
+    		 		}else{
+    		 			Y.commUtils.showDialog(Y.myI18n.getText('general.alert.title'),Y.myI18n.getText('index.login.facebookEmailMustGranted'),Y.commUtils.fbloginAction);
+    			 	}
+    			}else{
+    				if(!response.authResponse){
+    					Y.commUtils.showAlert(Y.myI18n.getText('dream.editor.mailChange.alert'),Y.myI18n.getText('index.login.facebookLoginNotAuthrized'));
+    				}
+    			}
+    		},Y.fbUtils.commonLoginScope);
+    	}
