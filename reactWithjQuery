@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://fb.me/react-0.12.0.js"></script>
+<script src="http://fb.me/JSXTransformer-0.12.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/jsx">
+    /** @jsx React.DOM */
+	
+	/** The css part */
+	var data = {
+		content1:"這是另一件很神奇的事!!!!! a b c d e f g h i j k L m n ",
+	};
+	var divStyle = {
+		cursor : 'pointer',
+		width: '37%',
+		float: 'left'
+	};
+	var rcContainerStyle = {
+		width : '60%'
+	};
+	var rcShow = {
+		display : 'block'
+	};
+	var rcHidden = {
+		display : 'none'
+	};
+	
+	
+
+	var RootElement = React.createClass({
+		getInitialState : function(){
+			return {date: new Date()};
+		},
+		makeDateString: function(){
+			this.setState({date: new Date()});
+		},
+		componentDidMount: function() {
+			$(function() {
+    			$( "#accordion" ).accordion({animate: 200});
+			});
+			this.interval = setInterval(this.makeDateString,1000);
+        },
+		handleRC : function(e){
+			var id = e.target.getAttribute('id');
+			switch(id){
+				case 'section1':
+					var sectionStyle = $('#rc1').css('display');
+					if('none' == sectionStyle){
+						$('#rc1').css('display','block');
+					}
+					$('#rc2').css('display','none');
+					break;
+				case 'section2':
+					console.log('in section2');
+					sectionStyle = $('#rc2').css('display');
+					if('none' == sectionStyle){
+						$('#rc2').css('display','block');
+					}
+					$('#rc1').css('display','none'); 
+					break;
+			}
+		},
+		render: function(){
+			return (
+				<div id="container">
+					<div id="accordion" style={divStyle}>
+						<h3 id="section1" onClick={this.handleRC}>Section1</h3>
+						<AccordionFirst>
+							{this.props.content.content1}
+						</AccordionFirst>
+						<h3 id="section2" onClick={this.handleRC}>Section2</h3>
+						<AccordionFirst>
+							It is {this.state.date.toTimeString()}
+						</AccordionFirst>
+					</div>
+					<RelatedContent />
+				</div>
+		   );
+		}
+	});
+	
+	var RelatedContent = React.createClass({
+		render: function(){
+			return(
+				<div id='rcContainer' style={rcContainerStyle}>
+					<div id="rc1" style={rcShow}>
+    					<p>
+    					Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+    					ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+    					amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+    					odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+    					</p>
+					</div>
+					<div id="rc2" style={rcHidden}>
+    					<p>
+    					蟬聯5個月台灣智慧型手機品牌銷售量及銷售額市占雙冠王的宏達電（HTC），擋不住蘋果新機iPhone 6系列的強烈攻勢，
+						讓出10月的冠軍寶座；另一方面，原打算要展翅高飛的蝴蝶機2（Butterfly 2），也在主打市場之一的日本，傳出銷售
+						成績不如預期，周排名甚至跌至50名以外。
+    					</p>
+					</div>
+				</div>
+			);
+		}
+	});	
+
+	var AccordionFirst = React.createClass({
+		render: function(){
+			return (
+					<div>
+						<div>
+							{this.props.children}
+						</div>
+					</div>
+			);
+		}
+	});
+
+	React.render(
+		<RootElement content={this.data}/>,
+		document.getElementById('example')
+	);
+	</script>
+</body>
+</html>
