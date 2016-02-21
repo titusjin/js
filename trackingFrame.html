@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>frame</title>
+    </head>
+    <body>
+        <script>
+            var tracking = function(){
+                console.log('helllo tracking frame');
+                
+                var links = window.parent.document.getElementsByTagName("a");
+                var lengs = links.length;
+
+                for(var i = 0 ; i < lengs ; i++){
+                    links[i].addEventListener("click",function(e){
+                        e.preventDefault();
+                        console.log('in frame we have ++++++++');
+                        console.log(e.target.getAttribute("href"));
+
+                        document.cookie =  "username=titusjin;expires=Thu, 18 Dec 2020 12:00:00 GMT; ";
+                    });
+                }
+            }   
+            window.onload = tracking();         
+        </script>
+    </body>
+</html>

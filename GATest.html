@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GATest</title>
+    </head>
+    <body>
+        <div>
+            <a href="https://tw.yahoo.com">link1</a>
+            <a href="https://www.storm.mg">link2</a>
+        </div>
+        <script>
+            function doTest (e){
+                var theCookies = document.cookie.split(';');
+                var aString = '';
+                for (var i = 1 ; i <= theCookies.length; i++) {
+                    aString += i + ' ' + theCookies[i-1] + "\n";
+                }
+                console.log(aString);
+
+
+                var ifrm = document.createElement("iframe"); 
+                ifrm.setAttribute("src", "file:///Users/titusjin/Desktop/trackingFrame.html"); 
+                ifrm.style.display = "none";
+                document.body.appendChild(ifrm);
+
+
+
+                // var links = document.getElementsByTagName("a");
+                // var lengs = links.length;
+
+                // for(var i = 0 ; i < lengs ; i++){
+                //     links[i].addEventListener("click",function(e){
+                //         console.log(e.target.getAttribute("href"));
+
+                //         document.cookie =  "username=titusjin;expires=Thu, 18 Dec 2020 12:00:00 GMT; ";
+                //     });
+                // }
+            }
+            window.onload = doTest();
+        </script
+    </body>
+</html>
