@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	 <link  href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<script src="http://fb.me/react-0.13.1.js"></script>
+	<script src="http://fb.me/JSXTransformer-0.13.1.js"></script>
+	<script type="text/jsx">
+	/** @jsx React.DOM */
+	var PRODUCTS = [
+  		{category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+  		{category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+  		{category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+  		{category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+ 		{category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+  		{category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+	];
+
+
+	var ProductCategoryRow = React.createClass({
+    	render: function() {
+        	return (<tr>
+						<th colSpan="2">{this.props.category}</th>
+					</tr>);
+    	}
+	});
+
+	var ProductRow = React.createClass({
+    	render: function() {
+        	var name = this.props.product.stocked ?
+            	this.props.product.name :
+            	<span style={{color: 'red'}}>
+                	{this.props.product.name}
+            	</span>;
+        	return (
+            	<tr>
+                	<td>{name}</td>
+                	<td>{this.props.product.price}</td>
+            	</tr>
+        	);
+    	}
+	});
+
+	var ProductTable = React.createClass({
+    	render: function() {
+        	var rows = [];
+        	var lastCategory = null;
+        	this.props.products.forEach(function(product) {
+            	if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
+                	return;
+            	}
+            	if (product.category !== lastCategory) {
+                	rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
+            	}
+            	rows.push(<ProductRow product={product} key={product.name} />);
+            	lastCategory = product.category;
+        	}.bind(this));
+        	
+			return (
+				<div class="col-lg-4 col-lg-offset-4">
+            		<table>
+                		<thead>
+                    		<tr>
+                        		<th>Name</th>
+                        		<th>Price</th>
+                    		</tr>
+                		</thead>
+                		<tbody>{rows}</tbody>
+            		</table>
+				</div>
+        	);
+    	}
+	});
+
+	var SearchBar = React.createClass({
+		handleSubmit : function(e){
+			e.preventDefault();
+
+			console.log(React.findDOMNode(this.refs.filterTextInput).value.trim());
+			console.log(React.findDOMNode(this.refs.inStockOnlyCheck).checked);
+			
+			var filterTextInput = React.findDOMNode(this.refs.filterTextInput).value.trim();
+			var inStockOnlyCheck = React.findDOMNode(this.refs.inStockOnlyCheck).checked;
+
+			this.props.callBack(filterTextInput,inStockOnlyCheck);
+		},
+    	render: function() {
+        	return (
+				<div class="col-lg-4 col-lg-offset-4">
+    	        	<form onSubmit={this.handleSubmit}>
+	                	<input type="text" placeholder="Search..." 
+							defaultValue={this.props.filterText} ref="filterTextInput" />
+                		<p>
+							<input type="checkbox" defaultChecked={this.props.inStockOnly} ref="inStockOnlyCheck" />
+							Only show products in stock
+							<input type="submit" style={{marginLeft: 5 + 'em'}} value="Send !" />
+                		</p>
+            		</form>
+				</div>
+        	);
+    	}
+	});
+
+	var FilterableProductTable = React.createClass({
+    	getInitialState: function() {
+        	return {
+        	    filterText: '',
+    	        inStockOnly: false
+	        };
+    	},
+		linkFilterTextToState: function(filterText,isStockOnlyCheck){
+			this.setState({
+							filterText: filterText,
+							inStockOnly: isStockOnlyCheck
+						});
+		},
+    	render: function() {
+        	return (
+            	<div>
+                	<SearchBar 
+						filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} callBack={this.linkFilterTextToState} />
+                	<ProductTable products={this.props.products} filterText={this.state.filterText} inStockOnly={this.state.inStockOnly} />
+            	</div>
+        	);
+    	}
+	});
+
+	React.render(<FilterableProductTable products={PRODUCTS} />, document.body);
+</script>
+</body>
+</html>
