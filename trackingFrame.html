@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>frame</title>
+        <title>frame1</title>
     </head>
     <body>
         <script>
+            // (function(){
+            //     alert('hello world');
+            // })();
+
             var tracking = function(){
-                console.log('helllo tracking frame');
-                
+                console.log('hello tracking frame');
+                console.log(window.parent.document.URL);
+
+                // var theCookies = document.cookie.split(';');
+                // var aString = '';
+                // for (var i = 1 ; i <= theCookies.length; i++) {
+                //     aString += i + ' ' + theCookies[i-1] + "\n";
+                // }
+                // console.log(aString);
+
                 var links = window.parent.document.getElementsByTagName("a");
                 var lengs = links.length;
-
                 for(var i = 0 ; i < lengs ; i++){
                     links[i].addEventListener("click",function(e){
                         e.preventDefault();
                         console.log('in frame we have ++++++++');
                         console.log(e.target.getAttribute("href"));
-
                         document.cookie =  "username=titusjin;expires=Thu, 18 Dec 2020 12:00:00 GMT; ";
+
+
                     });
                 }
-            }   
-            window.onload = tracking();         
+            }
+            window.onload = tracking();
         </script>
     </body>
 </html>
