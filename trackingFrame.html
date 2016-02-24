@@ -8,29 +8,52 @@
             // (function(){
             //     alert('hello world');
             // })();
+            var getCookie = function(c_name){
+                // reutrn "" if there is no required cookie
+                if (document.cookie.length > 0) {
+                    var c_start = document.cookie.indexOf(c_name + "=");
+                    if (c_start != -1) {
+                        c_start = c_start + c_name.length + 1;
+                        var c_end = document.cookie.indexOf(";", c_start);
+                        if (c_end == -1) {
+                            c_end = document.cookie.length;
+                        }
+                        return decodeURIComponent(document.cookie.substring(c_start, c_end));
+                    }
+                }
+                return "";
+            }
 
             var tracking = function(){
                 console.log('hello tracking frame');
                 console.log(window.parent.document.URL);
 
-                // var theCookies = document.cookie.split(';');
-                // var aString = '';
-                // for (var i = 1 ; i <= theCookies.length; i++) {
-                //     aString += i + ' ' + theCookies[i-1] + "\n";
-                // }
-                // console.log(aString);
+                var r = getCookie("smg_b") ? "hello" : "world";
+                console.log(r);
+
+                var theCookies = document.cookie.split(';');
+                var aString = '';
+                for (var i = 1 ; i <= theCookies.length; i++) {
+                    aString += i + ' ' + theCookies[i-1] + "\n";
+                }
+                console.log(aString);
 
                 var links = window.parent.document.getElementsByTagName("a");
                 var lengs = links.length;
+                var trackCallback = function(e){
+                    console.log("hello in new tracking method");
+                    e.preventDefault();
+                    console.log('in frame we have ++++++++');
+                    console.log(e.target.getAttribute("href"));
+                    document.cookie =  "username=titusjin;expires=Thu, 18 Dec 2020 12:00:00 GMT; ";
+                }
+
                 for(var i = 0 ; i < lengs ; i++){
-                    links[i].addEventListener("click",function(e){
-                        e.preventDefault();
-                        console.log('in frame we have ++++++++');
-                        console.log(e.target.getAttribute("href"));
-                        document.cookie =  "username=titusjin;expires=Thu, 18 Dec 2020 12:00:00 GMT; ";
-
-
-                    });
+                    if(window.addEventListener){
+                        links[i].addEventListener("click", trackCallback);
+                    }else {
+                        links[i].attachEvent("click", trackCallback); //IE
+                    }
                 }
             }
             window.onload = tracking();
