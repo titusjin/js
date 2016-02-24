@@ -5,36 +5,27 @@
     </head>
     <body>
         <div>
-            <a href="https://tw.yahoo.com">link1</a>
-            <a href="https://www.storm.mg">link2</a>
+            <a id="yal" href="https://tw.yahoo.com">link1</a>
+            <a id="smgl" href="https://www.storm.mg">link2</a>
         </div>
         <script>
             function doTest (e){
-                var theCookies = document.cookie.split(';');
-                var aString = '';
-                for (var i = 1 ; i <= theCookies.length; i++) {
-                    aString += i + ' ' + theCookies[i-1] + "\n";
-                }
-                console.log(aString);
+                var yahooLink = document.getElementById("yal");
+                yahooLink.addEventListener("click",function(){
+                    console.log('first handle');
+                });
 
-
-                var ifrm = document.createElement("iframe"); 
-                ifrm.setAttribute("src", "file:///Users/titusjin/Desktop/trackingFrame.html"); 
+                var ifrm = document.createElement("iframe");
+                ifrm.setAttribute("src", "file:///Users/develop01/Desktop/trackingFrame.html");
+                ifrm.setAttribute("id","frame1");
                 ifrm.style.display = "none";
                 document.body.appendChild(ifrm);
 
-
-
-                // var links = document.getElementsByTagName("a");
-                // var lengs = links.length;
-
-                // for(var i = 0 ; i < lengs ; i++){
-                //     links[i].addEventListener("click",function(e){
-                //         console.log(e.target.getAttribute("href"));
-
-                //         document.cookie =  "username=titusjin;expires=Thu, 18 Dec 2020 12:00:00 GMT; ";
-                //     });
-                // }
+                var ifram2 = document.createElement("iframe");
+                ifram2.setAttribute("src", "file:///Users/develop01/Desktop/trackingFrame2.html");
+                ifram2.setAttribute("id","frame2");
+                ifram2.style.display = "none";
+                document.body.appendChild(ifram2);
             }
             window.onload = doTest();
         </script
